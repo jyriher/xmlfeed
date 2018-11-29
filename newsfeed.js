@@ -1,6 +1,6 @@
 $(document).ready(function () {
 	//feed to parse
-	var feed = "https://www.is.fi/rss/ulkomaat.xml";
+	var feed = "https://www.metropolia.fi/ajankohtaista/tapahtumat/?type=100&tx_ttnews%5Bcat%5D=135%2C134%2C133%2C132&cHash=9adf1714c65e662e9b1eef82120dbcbc";
 
 	$.ajax(feed, {
 		accepts: {
@@ -10,12 +10,10 @@ $(document).ready(function () {
 		success: function (data) {
 			//Credit: http://stackoverflow.com/questions/10943544/how-to-parse-an-rss-feed-using-javascript
 
-			$(data).find("item").each(function () { // or "item" or whatever suits your feed
+			$(data).find("entry").each(function () { // or "item" or whatever suits your feed
 				var el = $(this);
 
-
-
-				var list = { title: el.find("title").text(), link: el.find("link").text(), description: el.find("description").text() }
+				var list = { title: el.find("title").text(), link: el.find("link").text(), description: el.find("summary").text() }
 
 				//arr.push(list);
 
@@ -24,7 +22,7 @@ $(document).ready(function () {
 
 
 					$('<div/>', {
-						text: value,
+						text: value.replace(/<(?:.|\n)*?>/gm, ''),
 						class: 'className'
 					}).appendTo('body');
 
@@ -38,3 +36,4 @@ $(document).ready(function () {
 	});
 
 });
+
