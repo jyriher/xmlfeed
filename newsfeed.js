@@ -18,13 +18,21 @@ $(document).ready(function () {
 				//arr.push(list);
 
 
+
 				$.each(list, function (index, value) {
+
+					var umlaut = value.replace(/\&auml;/g, "ä");
+
+					umlaut = umlaut.replace(/\&ouml;/g, "ö");
+					umlaut = umlaut.replace(/\&nbsp;/g, " ");
+					umlaut = umlaut.replace(/\&amp;/g, "&");
+					
 
 
 					$('<div/>', {
-						text: value.replace(/<(?:.|\n)*?>/gm, ''),
+						text: umlaut.replace(/<(?:.|\n)*?>/gm, ''),
 						class: 'className'
-					}).appendTo('body');
+					}).appendTo('marquee');
 
 				});
 
